@@ -26,7 +26,7 @@ Backend : Spring Boot
 Frontend : Thymeleaf pour les templates HTML
 Base de Données : MySQL
 
-https://github.com/user-attachments/assets/154ca832-a58d-4f92-b775-958236ca2086
+
 
  
 
