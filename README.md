@@ -25,4 +25,7 @@ Technologies Utilisées
 Backend : Spring Boot
 Frontend : Thymeleaf pour les templates HTML
 Base de Données : MySQL
- 
+
+
+ https://github.com/user-attachments/assets/956fdd5c-56c3-4c99-bad3-fb9c2ff683e5
+
