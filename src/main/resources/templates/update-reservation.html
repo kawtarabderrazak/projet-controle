@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Mettre à jour la réservation</title>
+    <style>
+        /* Styles généraux */
+        body {
+            background-color: #f4f4f4; /* Couleur de fond douce */
+            font-family: Arial, sans-serif; /* Police du texte */
+            margin: 0; /* Pas de marge par défaut */
+            padding: 20px; /* Espacement autour de la page */
+            color: #333; /* Couleur du texte */
+        }
+
+        /* Conteneur principal */
+        .container {
+            max-width: 600px; /* Largeur maximale du conteneur */
+            margin: auto; /* Centre le conteneur */
+            background-color: #fff; /* Fond blanc pour le conteneur */
+            border-radius: 8px; /* Coins arrondis */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Ombre douce */
+            padding: 20px; /* Espacement intérieur */
+        }
+
+        /* Titre principal */
+        h1 {
+            text-align: center; /* Centre le titre */
+            color: #007BFF; /* Couleur du titre */
+            margin-bottom: 20px; /* Marge en bas du titre */
+        }
+
+        /* Styles des champs de saisie */
+        input[type="text"], input[type="date"], input[type="time"], select {
+            width: 100%; /* Prend toute la largeur du conteneur */
+            padding: 10px; /* Espacement intérieur */
+            margin-top: 5px; /* Marge au-dessus du champ */
+            border: 1px solid #ccc; /* Bordure grise */
+            border-radius: 5px; /* Coins arrondis */
+            box-sizing: border-box; /* Inclut le padding dans la largeur totale */
+            background-color: #ffffff; /* Fond blanc pour une bonne visibilité */
+            color: #333; /* Couleur du texte */
+        }
+
+        /* Styles pour le bouton */
+        button {
+            background-color: #007BFF; /* Couleur du bouton */
+            color: white; /* Couleur du texte du bouton */
+            padding: 10px; /* Espacement intérieur du bouton */
+            border: none; /* Supprime la bordure */
+            border-radius: 5px; /* Coins arrondis */
+            cursor: pointer; /* Curseur en forme de main au survol */
+            margin-top: 20px; /* Marge au-dessus du bouton */
+            width: 100%; /* Prend toute la largeur */
+            font-size: 16px; /* Taille du texte */
+            transition: background-color 0.3s; /* Transition douce */
+        }
+
+        /* Effet de survol pour le bouton */
+        button:hover {
+            background-color: #0056b3; /* Couleur au survol */
+        }
+
+        /* Lien de retour */
+        a {
+            display: block; /* Force le lien à occuper toute la largeur */
+            text-align: center; /* Centre le texte */
+            margin-top: 20px; /* Marge au-dessus du lien */
+            text-decoration: none; /* Supprime le soulignement du lien */
+            color: #007BFF; /* Couleur du lien */
+        }
+
+        /* Lien au survol */
+        a:hover {
+            text-decoration: underline; /* Souligne le lien au survol */
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Mettre à jour la réservation</h1>
+
+    <form th:action="@{/reservation/update/{id}(id=${reservation.id})}" method="post">
+        <input type="text" name="utilisateur" th:value="${reservation.utilisateur}" required placeholder="Nom de l'utilisateur"/>
+        <input type="date" name="date" th:value="${reservation.date}" required />
+        <input type="time" name="heureDebut" th:value="${reservation.heureDebut}" required />
+        <input type="time" name="heureFin" th:value="${reservation.heureFin}" required />
+        <select name="salleId" required>
+            <option th:each="salle : ${salles}" th:value="${salle.id}"
+                    th:text="${salle.nom}">Salle</option>
+        </select>
+        <button type="submit">Mettre à jour</button>
+    </form>
+
+    <a href="@{/reservation}">Retour à la liste des réservations</a>
+</div>
+</body>
+</html>

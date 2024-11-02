@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Historique des Réservations</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}"> <!-- Chemin vers le CSS global -->
+    <style>
+        /* Styles généraux */
+        body {
+            background-image: url('/images/background1.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Container centré */
+        .container {
+            width: 90%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.8); /* Fond avec transparence */
+            border-radius: 8px;
+        }
+
+        /* Titre de la page */
+        h1 {
+            text-align: center;
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+
+        /* Formulaire de recherche */
+        .search-form {
+            display: flex;
+            justify-content: space-around;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .search-form label, .search-form input, .search-form select {
+            font-size: 16px;
+            color: #ffffff;
+        }
+
+        /* Table des réservations */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        th {
+            background-color: #333;
+            color: #ffffff;
+        }
+
+        td {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+        }
+
+        /* Boutons d'action */
+        .action-button {
+            padding: 8px 12px;
+            margin: 5px;
+            background-color: #4CAF50; /* Vert pour "Mettre à jour" */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .delete-button {
+            background-color: #FF5733; /* Rouge pour "Supprimer" */
+        }
+
+        .action-button:hover, .delete-button:hover {
+            opacity: 0.9;
+        }
+
+        /* Bouton Retour */
+        .back-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .back-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Historique des Réservations</h1>
+
+    <!-- Formulaire de recherche -->
+    <form class="search-form" th:action="@{/reservations/historique}" method="get">
+        <label for="utilisateur">Rechercher par utilisateur :</label>
+        <input type="text" id="utilisateur" name="utilisateur" placeholder="Nom de l'utilisateur">
+
+        <label for="salle">Sélectionner une salle :</label>
+        <select id="salle" name="salleId">
+            <option value="">Toutes les salles</option>
+            <option th:each="salle : ${salles}" th:value="${salle.id}" th:text="${salle.nom}"></option>
+        </select>
+
+        <button type="submit" class="action-button">Rechercher</button>
+    </form>
+
+    <!-- Table d'historique des réservations -->
+    <table>
+        <thead>
+        <tr>
+            <th>Date</th>
+            <th>Heure de Début</th>
+            <th>Heure de Fin</th>
+            <th>Salle</th>
+            <th>Utilisateur</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="reservation : ${reservations}">
+            <td th:text="${reservation.date}"></td>
+            <td th:text="${reservation.heureDebut}"></td>
+            <td th:text="${reservation.heureFin}"></td>
+            <td th:text="${reservation.salle.nom}"></td>
+            <td th:text="${reservation.utilisateur}"></td>
+            <td>
+                <!-- Lien de mise à jour avec ID dans l'URL -->
+                <a th:href="@{/reservation/update/{id}(id=${reservation.id})}" class="action-button">Mettre à jour</a>
+                <a th:href="@{/reservation/delete/{id}(id=${reservation.id})}" class="delete-button" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette réservation ?');">Supprimer</a>
+
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- Bouton Retour -->
+    <a th:href="@{/reservations}" class="back-button">Retour à la liste des réservations</a>
+</div>
+</body>
+</html>

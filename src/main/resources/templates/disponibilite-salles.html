@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Disponibilité des Salles</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}"> <!-- Chemin vers le CSS global -->
+
+    <style>
+        /* Styles pour le background */
+        body {
+            background-image: url('/images/background1.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Container principal centré */
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.7); /* Légère transparence pour le fond */
+            border-radius: 8px;
+        }
+
+        /* Titre principal */
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Formulaire de recherche */
+        .search-form {
+            display: flex;
+            justify-content: space-around;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .search-form label, .search-form input {
+            color: #ffffff;
+            font-size: 16px;
+        }
+
+        /* Table des salles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        th {
+            background-color: #333;
+            color: #ffffff;
+        }
+
+        td {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+        }
+
+        /* Boutons de réservation */
+        .reservation-button {
+            padding: 8px 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .reservation-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Gestion des Salles Disponibles</h1>
+
+    <!-- Formulaire de recherche -->
+    <form class="search-form" th:action="@{/reservation/disponibles}" method="get">
+        <label for="date">Date :</label>
+        <input type="date" id="date" name="date" required />
+
+        <label for="heureDebut">Heure de début :</label>
+        <input type="time" id="heureDebut" name="heureDebut" required />
+
+        <label for="heureFin">Heure de fin :</label>
+        <input type="time" id="heureFin" name="heureFin" required />
+
+        <button type="submit" class="reservation-button">Rechercher</button>
+    </form>
+
+    <!-- Liste des salles disponibles -->
+    <div th:if="${sallesDisponibles.isEmpty()}">
+        <p>Aucune salle disponible pour le créneau spécifié.</p>
+    </div>
+    <div th:unless="${sallesDisponibles.isEmpty()}">
+        <table>
+            <thead>
+            <tr>
+                <th>Nom de la Salle</th>
+                <th>Capacité</th>
+                <th>Équipements</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="salle : ${sallesDisponibles}">
+                <td th:text="${salle.nom}">Nom de la Salle</td>
+                <td th:text="${salle.capacite}">Capacité</td>
+                <td th:text="${salle.equipements}">Équipements</td>
+                <td>
+                    <!-- Formulaire pour réserver la salle -->
+                    <form th:action="@{/reservation/creer}" method="post">
+                        <input type="hidden" name="salleId" th:value="${salle.id}" />
+                        <input type="hidden" name="date" th:value="${date}" />
+                        <input type="hidden" name="heureDebut" th:value="${heureDebut}" />
+                        <input type="hidden" name="heureFin" th:value="${heureFin}" />
+                        <input type="text" name="utilisateur" placeholder="Nom de l'utilisateur" required />
+                        <button type="submit" class="reservation-button">Réserver</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

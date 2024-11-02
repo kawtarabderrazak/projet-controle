@@ -1,0 +1,99 @@
+<!-- modifier-salle.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Update Salle</title>
+    <style>
+        /* Style de base */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        /* Style du conteneur */
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #007BFF; /* Couleur bleue pour le titre */
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        /* Style des labels et des champs de saisie */
+        label {
+            display: block;
+            font-weight: bold;
+            margin-top: 10px;
+            color: #555;
+        }
+
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        /* Style des messages d'erreur */
+        span[th\\:if] {
+            color: #d9534f;
+            font-size: 14px;
+        }
+
+        /* Style du bouton de soumission */
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            background-color: #007BFF; /* Bleu pour le bouton */
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3; /* Bleu foncé pour l'effet de survol */
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Update Salle</h1>
+    <form action="#" th:action="@{/salle/modifier/{id}(id=${salle.id})}" th:object="${salle}" method="post">
+        <label for="nom">Nom de la Salle</label>
+        <input type="text" th:field="*{nom}" id="nom" placeholder="Nom de la Salle" required>
+        <span th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"></span>
+
+        <label for="capacite">Capacité</label>
+        <input type="number" th:field="*{capacite}" id="capacite" placeholder="Capacité" required>
+        <span th:if="${#fields.hasErrors('capacite')}" th:errors="*{capacite}"></span>
+
+        <label for="equipements">Équipements</label>
+        <input type="text" th:field="*{equipements}" id="equipements" placeholder="Équipements">
+        <span th:if="${#fields.hasErrors('equipements')}" th:errors="*{equipements}"></span>
+
+        <input type="submit" value="Update Salle">
+    </form>
+</div>
+</body>
+</html>

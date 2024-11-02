@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Liste des Salles</title>
+    <style>
+        /* Style de base */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            color: #333;
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #007BFF; /* Bleu pour le titre */
+        }
+
+        /* Style de la table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #007BFF; /* Bleu pour les en-têtes */
+            color: white;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Style des liens d'action */
+        a {
+            color: #007BFF; /* Bleu pour les liens */
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Style du bouton Ajouter */
+        .add-button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 20px;
+            background-color: #007BFF; /* Bleu pour le bouton */
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .add-button:hover {
+            background-color: #0056b3; /* Bleu foncé pour le bouton au survol */
+        }
+    </style>
+</head>
+<body>
+
+<h1>Liste des Salles</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>Nom</th>
+        <th>Capacité</th>
+        <th>Équipements</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="salle : ${salles}">
+        <td th:text="${salle.nom}"></td>
+        <td th:text="${salle.capacite}"></td>
+        <td th:text="${salle.equipements}"></td>
+        <td>
+            <a th:href="@{/salle/modifier/{id}(id=${salle.id})}">Modifier</a> |
+            <a th:href="@{/salle/supprimer/{id}(id=${salle.id})}"
+               th:onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette salle ?');">Supprimer</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<div style="text-align: center;">
+    <a th:href="@{/salle/ajouter}" class="add-button">Ajouter une Salle</a>
+</div>
+
+</body>
+</html>

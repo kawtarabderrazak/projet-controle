@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Page d'accueil</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}"> <!-- Chemin vers le fichier CSS -->
+
+    <!-- Ajout du style CSS pour l'image de fond -->
+    <style>
+        body {
+            background-image: url('/images/background1.jpg'); /* Chemin vers l'image de fond */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: #ffffff;
+        }
+         /* Styles pour les liens de navigation */
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+        }
+
+        nav ul li a:hover {
+            color: #ddd;
+        }
+    </style>
+</head>
+<body>
+<h1>    Bienvenue sur l'application de gestion des réservations de salles de Réunion </h1>
+<nav>
+    <ul>
+        <li><a th:href="@{/salle/ajouter}">Ajouter une salle</a></li>
+        <li><a th:href="@{/reservation/disponibles(date='2024-11-01', heureDebut='09:00', heureFin='17:00')}">Réserver une salle disponible</a></li>
+        <li><a th:href="@{/reservations/historique}">Historique des réservations</a></li>
+    </ul>
+</nav>
+</body>
+</html>

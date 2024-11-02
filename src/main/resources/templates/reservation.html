@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Réserver une Salle</title>
+</head>
+<body>
+<h2>Réserver une Salle</h2>
+<form th:action="@{/reservation/ajouter}" th:object="${reservation}" method="post">
+    <label for="date">Date</label>
+    <input type="date" th:field="*{date}" id="date" required>
+
+    <label for="heureDebut">Heure Début</label>
+    <input type="time" th:field="*{heureDebut}" id="heureDebut" required>
+
+    <label for="heureFin">Heure Fin</label>
+    <input type="time" th:field="*{heureFin}" id="heureFin" required>
+
+    <label for="salle">Salle</label>
+    <select th:field="*{salle.id}" id="salle" required>
+        <option th:each="salle : ${salles}" th:value="${salle.id}" th:text="${salle.nom}"></option>
+    </select>
+
+    <button type="submit">Réserver</button>
+    <style>
+        /* Styles pour les champs de saisie */
+        input[type="text"], input[type="number"], input[type="date"], input[type="time"], select {
+            width: 100%; /* Prend toute la largeur du conteneur */
+            padding: 10px; /* Espacement intérieur */
+            margin-top: 5px; /* Marge au-dessus du champ */
+            border: 1px solid #ccc; /* Bordure grise */
+            border-radius: 5px; /* Coins arrondis */
+            box-sizing: border-box; /* Inclut le padding dans la largeur totale */
+            background-color: #ffffff; /* Fond blanc pour une bonne visibilité */
+            color: #333; /* Couleur du texte */
+            font-size: 16px; /* Augmente la taille de la police pour une meilleure lisibilité */
+        }
+
+        /* Styles pour le texte des champs de saisie */
+        input[type="date"], input[type="time"] {
+            background-color: #ffffff; /* Assurez-vous que le fond est blanc */
+            color: #333; /* Couleur du texte pour le contraste */
+            border: 1px solid #ccc; /* Bordure pour une meilleure apparence */
+        }
+
+        input[type="text"]::placeholder, input[type="number"]::placeholder {
+            color: #aaa; /* Couleur du texte de l'espace réservé */
+            opacity: 1; /* S'assure que l'opacité est à 100% */
+        }
+
+        /* Ajout d'une règle pour le focus */
+        input:focus {
+            border-color: #007BFF; /* Couleur de la bordure au focus */
+            outline: none; /* Supprime le contour par défaut */
+        }
+    </style>
+
+
+
+    <input type="text" id="nom" placeholder="Nom de la Salle" required>
+
+</form>
+<p>
+    <a th:href="@{/reservations}">Retour à la liste des réservations</a>
+</p>
+</body>
+</html>

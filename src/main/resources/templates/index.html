@@ -1,0 +1,38 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Liste des Salles</title>
+</head>
+<body>
+<h2>Liste des Salles</h2>
+<div th:switch="${salles}">
+    <h3 th:case="null">Aucune salle disponible !</h3>
+    <div th:case="*">
+        <table>
+            <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Capacité</th>
+                <th>Équipements</th>
+                <th>Modifier</th>
+                <th>Supprimer</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="salle : ${salles}">
+                <td th:text="${salle.nom}"></td>
+                <td th:text="${salle.capacite}"></td>
+                <td th:text="${salle.equipements}"></td>
+                <td><a th:href="@{/update/{id}(id=${salle.id})}">Modifier</a></td>
+                <td><a th:href="@{/delete/{id}(id=${salle.id})}">Supprimer</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<p>
+    <a href="/add-salle">Ajouter une nouvelle salle</a>
+</p>
+</body>
+</html>

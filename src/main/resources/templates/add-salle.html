@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Salle</title>
+    <style>
+        /* Styles généraux */
+        body {
+            background-image: url('/images/background1.jpg'); /* Fond d'écran */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: #333; /* Couleur du texte */
+            font-family: Arial, sans-serif; /* Police du texte */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center; /* Centre horizontalement */
+            align-items: center; /* Centre verticalement */
+            height: 100vh; /* Prend toute la hauteur de la fenêtre */
+        }
+
+        /* Conteneur du formulaire */
+        .container {
+            background-color: rgba(255, 255, 255, 0.9); /* Fond blanc avec transparence */
+            border-radius: 8px; /* Coins arrondis */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Ombre du conteneur */
+            padding: 20px; /* Espacement intérieur */
+            width: 400px; /* Largeur fixe du conteneur */
+        }
+
+        /* Titre du formulaire */
+        h1 {
+            text-align: center; /* Centre le titre */
+            color: #007BFF; /* Couleur du titre */
+            margin-bottom: 20px; /* Marge en bas */
+        }
+
+        /* Styles des champs de saisie */
+        label {
+            font-weight: bold; /* Met le texte en gras */
+            margin-top: 10px; /* Marge au-dessus */
+            display: block; /* Affiche chaque label sur une nouvelle ligne */
+        }
+
+        input[type="text"], input[type="number"] {
+            width: 100%; /* Prend toute la largeur du conteneur */
+            padding: 10px; /* Espacement intérieur */
+            margin-top: 5px; /* Marge au-dessus du champ */
+            border: 1px solid #ccc; /* Bordure grise */
+            border-radius: 5px; /* Coins arrondis */
+            box-sizing: border-box; /* Inclut le padding dans la largeur totale */
+        }
+
+        /* Styles pour le bouton */
+        input[type="submit"] {
+            background-color: #007BFF; /* Couleur du bouton */
+            color: white; /* Couleur du texte du bouton */
+            padding: 10px; /* Espacement intérieur du bouton */
+            border: none; /* Supprime la bordure */
+            border-radius: 5px; /* Coins arrondis */
+            cursor: pointer; /* Curseur en forme de main au survol */
+            margin-top: 20px; /* Marge au-dessus du bouton */
+            width: 100%; /* Prend toute la largeur */
+        }
+
+        /* Effet de survol pour le bouton */
+        input[type="submit"]:hover {
+            background-color: #0056b3; /* Couleur au survol */
+        }
+
+        /* Styles des messages d'erreur */
+        span {
+            color: red; /* Couleur des messages d'erreur */
+            font-size: 12px; /* Taille du texte */
+            display: block; /* Affiche les messages d'erreur sur une nouvelle ligne */
+            margin-top: 5px; /* Marge au-dessus du message d'erreur */
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Add New Salle</h1>
+    <form action="#" th:action="@{/salle/ajouter}" th:object="${salle}" method="post">
+        <label for="nom">Nom de la Salle</label>
+        <input type="text" th:field="*{nom}" id="nom" placeholder="Nom de la Salle" required>
+        <span th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"></span>
+
+        <label for="capacite">Capacité</label>
+        <input type="number" th:field="*{capacite}" id="capacite" placeholder="Capacité" required>
+        <span th:if="${#fields.hasErrors('capacite')}" th:errors="*{capacite}"></span>
+
+        <label for="equipements">Équipements</label>
+        <input type="text" th:field="*{equipements}" id="equipements" placeholder="Équipements">
+        <span th:if="${#fields.hasErrors('equipements')}" th:errors="*{equipements}"></span>
+
+        <input type="submit" value="Add Salle">
+    </form>
+</div>
+</body>
+</html>
