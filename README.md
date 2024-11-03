@@ -27,6 +27,7 @@ Frontend : Thymeleaf pour les templates HTML
 Base de Données : MySQL
 
 
+https://github.com/user-attachments/assets/1dc3909e-7b74-4f87-b4cf-3f40b397141c
 
 
 
