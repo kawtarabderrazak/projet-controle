@@ -28,6 +28,5 @@ Base de Données : MySQL
 
 
 
-https://github.com/user-attachments/assets/130ffe50-a0b3-450f-81a5-8356448d1dd8
- 
+
 
